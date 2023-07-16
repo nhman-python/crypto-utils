@@ -10,7 +10,7 @@ def main():
     convert = bytes(message.encode())
     try:
         # Read the encryption key from the file
-        key = read_binary('change to your file path')
+        key = read_binary('my.key')
 
         # Encrypt the message
         encryptor = Encryption(key, convert)

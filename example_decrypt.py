@@ -9,7 +9,7 @@ def main(file_path):
         decrypted_file_path = delete_extension(encrypted_file_path)
 
         # Read the encryption key from the file
-        key = read_binary('my-key')
+        key = read_binary('my.key')
 
         # Read the encrypted data from file
         encrypted_data = read_binary(encrypted_file_path)
@@ -29,4 +29,4 @@ def main(file_path):
 
 
 if __name__ == '__main__':
-    main('test.jpg.enc') # change to you'r file path
+    main('example.jpg.enc') # change to you'r file path

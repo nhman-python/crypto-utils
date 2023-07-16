@@ -6,9 +6,12 @@ Utility functions for encryption and file operations.
 import argparse
 import os
 import sys
+
 from Crypto.Cipher import AES
 from Crypto.Protocol.KDF import PBKDF2
 from Crypto.Util.Padding import pad, unpad
+
+__version__ = '1.1'
 
 
 class Encryption:
@@ -54,24 +57,19 @@ def delete_extension(path: str) -> str:
     return path[:-4]
 
 
-def create_new_key(password: str, path_key: str, length: int) -> str:
+def generate_key(password: str, length: int) -> bytes:
     """
     Create a new key based on the password and save it to a file.
-    :param password: Password for key generation
-    :param path_key: Path to save the key file
+    :param password: Password for a key generation
     :param length: Length key
-    :return: Path of the new key file
+    :return: the new key
     """
-    if os.path.exists(path_key):
-        raise FileExistsError('Key file already exists!')
     valid_lengths = [16, 24, 32]
     if length not in valid_lengths:
         raise ValueError('Invalid key length. Choose length from this list: [16, 24, 32]')
-    with open(path_key, 'wb') as file:
-        salt = os.urandom(length)
-        key = PBKDF2(password, salt, dkLen=32)
-        file.write(key)
-        return path_key
+    salt = os.urandom(length)
+    key = PBKDF2(password, salt, dkLen=32)
+    return key
 
 
 def read_binary(file_path: str) -> bytes:
@@ -130,8 +128,10 @@ def main():
 
     file_name = args.filename
     try:
-        file_path = create_new_key(args.password, file_name, length=32)
-        print(f"A new file was created based on your password. The file name is: {file_path}")
+        key = generate_key(args.password, length=32)
+        key_path = args.filename
+        write_binary(key_path, key)
+        print(f"A new file was created based on your password. The file name is: {key_path}")
     except (ValueError, FileExistsError) as write_error:
         print(write_error)
         sys.exit(1)

@@ -17,7 +17,7 @@ def main(file_path):
 
     try:
         # Read the encryption key from the file
-        key = read_binary('my-key')
+        key = read_binary('my.key')
 
         # Read binary data from the file path
         data = read_binary(file_path)
@@ -47,4 +47,4 @@ def main(file_path):
 
 
 if __name__ == '__main__':
-    main('test.jpg') # change to you'r file path
+    main('example.jpg') # change to you're file path
