@@ -10,7 +10,7 @@ def main():
     convert = bytes(message.encode())
     try:
         # Read the encryption key from the file
-        key = read_binary('my-key')
+        key = read_binary('change to your file path')
 
         # Encrypt the message
         encryptor = Encryption(key, convert)
@@ -21,7 +21,9 @@ def main():
         decryptor = Encryption(key, encrypted_message)
         decrypted_message = decryptor.decrypt()
         print(f'The decrypted message: {decrypted_message.decode()}')
-    except (FileNotFoundError, PermissionError, ValueError) as error:
+    except FileNotFoundError:
+        print('please run first\npython3 encryption_utils.py file_key your_password')
+    except (PermissionError, ValueError) as error:
         print(f'Error: {error}')
 
 
