@@ -17,3 +17,10 @@ python3 encryption_utils.py keyname password
 python encryption_utils.py keyname password
 ```
 
+# install in from pypi
+```
+pip install my-encryption-utils
+```
+
+# see the wiki page
+https://github.com/nhman-python/crypto-utils/wiki
