@@ -47,4 +47,4 @@ def main(file_path):
 
 
 if __name__ == '__main__':
-    main('newfile.jpg')
+    main('test.jpg') # change to you'r file path
