@@ -3,9 +3,9 @@ import sys
 from encryption_utils import read_binary, write_binary, delete_extension, Encryption
 
 
-def main():
+def main(file_path):
     try:
-        encrypted_file_path = 'newfile.jpg.enc'
+        encrypted_file_path = file_path
         decrypted_file_path = delete_extension(encrypted_file_path)
 
         # Read the encryption key from the file
@@ -29,4 +29,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main('test.jpg.enc') # change to you'r file path
