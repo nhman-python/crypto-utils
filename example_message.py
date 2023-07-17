@@ -1,6 +1,6 @@
 import argparse
 
-from encryption_utils import custom_input, Encryption, read_binary
+from simple2encrypt import custom_input, Encryption, read_binary
 
 parser = argparse.ArgumentParser(prog='message encryption', description='encrypt message with AES encryption from the '
                                                                         'key file')

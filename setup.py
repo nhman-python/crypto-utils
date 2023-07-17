@@ -1,15 +1,15 @@
 from setuptools import setup
 
 description = """
-# Encryption Utils
+# simple2encrypt
 
-`encryption_utils` is a Python library that provides utility functions for encryption and file operations. It 
+`simple2encrypt` is a Python library that provides utility functions for encryption and file operations. It 
 includes functionalities for encrypting and decrypting data using the AES algorithm, generating encryption keys, 
 reading and writing binary data from/to files, and handling user input.
 
 ## Installation
 
-You can install `encryption_utils` using `pip`:
+You can install `simple2encrypt` using `pip`:
 
 ```
 pip install simple2encrypt
@@ -54,7 +54,7 @@ To perform encryption and decryption using the AES algorithm, you can use the `E
 library. Here's an example:
 
 ```
-from encryption_utils import Encryption
+from simple2encrypt import Encryption
 
 # Initialize the Encryption object with the key and data
 key = b'mysecretpassword'  # Encryption key
@@ -75,7 +75,7 @@ print("Decrypted data:", decrypted_data)
 The `delete_extension` function can be used to remove the file extension from a path. Here's an example:
 
 ```
-from encryption_utils import delete_extension
+from simple2encrypt import delete_extension
 
 file_path = 'file.txt.enc'
 file_name = delete_extension(file_path)
@@ -87,7 +87,7 @@ print("File name without extension:", file_name)
 The `generate_key` function allows you to generate a new key based on a password. Here's an example:
 
 ```
-from encryption_utils import generate_key
+from simple2encrypt import generate_key
 
 password = 'mysecretpassword'  # Password for key generation
 length = 32  # Key length (choose from [16, 24, 32])
@@ -104,7 +104,7 @@ The `read_binary` and `write_binary` functions can be used to read and write bin
 Here's an example:
 
 ```
-from encryption_utils import read_binary, write_binary
+from simple2encrypt import read_binary, write_binary
 
 file_path = 'file.bin'
 
@@ -123,7 +123,7 @@ print("Data written to file successfully.")
 The `custom_input` function allows you to prompt the user for input and retrieve their response. Here's an example:
 
 ```
-from encryption_utils import custom_input
+from simple2encrypt import custom_input
 
 question = "Enter your name: "
 user_name = custom_input(question)
@@ -138,14 +138,24 @@ aes-key  # Executes the main function from encryption_utils module
 ```
 aes-key [file name] [secret-password]
 ```
-aes-message  # Executes the main function from example_message module
+This will create a new encryption key file named `key.bin` based on the provided password.
 
+```
+aes-message  [key_file] # Executes the main function from example_message module
+```
 
-This will create a new encryption key file named `my-key.bin` based on the provided password.
+To encrypt file:
+```
+aes-encrypt [file_path] [key_path]
+```
 
+To decrypt file:
+```
+aes-decrypt [file_path] [key_path]
+```
 ## Version
 
-The current version of `encryption_utils` is 1.5.3
+The current version of `encryption_utils` is 1.5.4
 
 ## License
 
@@ -156,7 +166,7 @@ See the `LICENSE` file for more information.
 
 setup(
     name='simple2encrypt',
-    version='1.5.3',
+    version='1.5.4',
     description='Utility functions for encryption and file operations',
     author='nhman-python',
     author_email='wbgblfix@duck.com',
@@ -164,11 +174,12 @@ setup(
     license='MIT',
     long_description=description,
     long_description_content_type='text/markdown',
-    py_modules=['encryption_utils', 'example_message'],
+    py_modules=['simple2encrypt', 'example_message', 'example_encrypt', 'example_decrypt'],
     install_requires=[
         'pycryptodome',  # Dependency on pycryptodome package
     ],
     entry_points={
-        'console_scripts': ['aes-key = encryption_utils:main', 'aes-message = example_message:main', ],
+        'console_scripts': ['aes-key = encryption_utils:main', 'aes-message = example_message:main',
+                            'aes-encrypt = example_encrypt:main', 'aes-decrypt = example_decrypt:main'],
     },
 )
