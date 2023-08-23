@@ -1,18 +1,52 @@
 Documentation for Encryption Utilities
 =====================================
 
-encryption_utils.py
+simple2encrypt.py
 -------------------
 
-.. automodule:: encryption_utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. module:: simple2encrypt
+   :synopsis: Utility functions for encryption and file operations.
+   :platform: Unix, Windows
+
+.. versionadded:: 1.5.8
 
 Overview
 --------
 
 This module provides utility functions for encryption and file operations.
+
+Module Contents
+----------------
+
+.. autosummary::
+   :toctree: generated/
+   :nosignatures:
+
+   Encryption
+   FileIO
+   encrypt_walk_dirs
+   decrypt_walk_dirs
+   custom_input
+   main
+
+Classes and Functions
+---------------------
+
+.. autoclass:: Encryption
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :inherited-members:
+
+.. autoclass:: FileIO
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autofunction:: encrypt_walk_dirs
+.. autofunction:: decrypt_walk_dirs
+.. autofunction:: custom_input
+.. autofunction:: main
 
 Installation
 ------------
@@ -21,87 +55,94 @@ To install the Encryption Utilities module, use the following command:
 
 .. code-block:: bash
 
-   pip install encryption-utils
+   pip install simple2encrypt
 
 Usage
 -----
 
-Here are some examples of how to use the functions provided by the module:
+Here are some examples of how to use the functions and classes provided by the module:
 
-Encrypting a Folder
-~~~~~~~~~~~~~~~~~~~
+Encryption Class
+~~~~~~~~~~~~~~~~~
+
+You can create an Encryption object to perform encryption and decryption using the AES algorithm.
 
 .. code-block:: python
 
-   from encryption_utils import folder_encrypt
+   from simple2encrypt import Encryption
 
-   folder_path = '/path/to/folder'
    key = b'mysecretpassword'
+   data = b'sensitive data'
 
-   folder_encrypt(folder_path, key)
+   encryption = Encryption(key, data)
+   encrypted_data = encryption.encrypt()
+   decrypted_data = encryption.decrypt()
 
-   print("Folder encryption completed.")
+   print("Encrypted data:", encrypted_data)
+   print("Decrypted data:", decrypted_data)
 
-Decrypting a Folder
-~~~~~~~~~~~~~~~~~~~
+FileIO Class
+~~~~~~~~~~~~
 
-.. code-block:: python
-
-   from encryption_utils import folder_decrypt
-
-   folder_path = '/path/to/folder'
-   key = b'mysecretpassword'
-
-   folder_decrypt(folder_path, key)
-
-   print("Folder decryption completed.")
-
-Generating a Key
-~~~~~~~~~~~~~~~~
+The FileIO class provides methods for various file operations.
 
 .. code-block:: python
 
-   from encryption_utils import generate_key
-
-   password = 'mysecretpassword'
-   key = generate_key(password, length=32)
-
-   print("Generated key:", key)
-
-Writing Binary Data to a File
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   from encryption_utils import write_binary
+   from simple2encrypt import FileIO
 
    file_path = '/path/to/file'
    data = b'binary data'
 
-   write_binary(file_path, data)
+   # Write binary data to a file
+   FileIO.write_binary(file_path, data)
 
-Reading Binary Data from a File
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   # Read binary data from a file
+   read_data = FileIO.read_binary(file_path)
+
+   print("Read data:", read_data)
+
+Encrypting and Decrypting Folders
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can use the `encrypt_walk_dirs` and `decrypt_walk_dirs` functions to process files in a folder.
 
 .. code-block:: python
 
-   from encryption_utils import read_binary
+   from simple2encrypt import encrypt_walk_dirs, decrypt_walk_dirs
 
-   file_path = '/path/to/file'
+   folder_path = '/path/to/folder'
+   key = b'mysecretpassword'
 
-   data = read_binary(file_path)
+   # Encrypt files in the folder
+   encrypt_walk_dirs(folder_path, key)
+
+   # Decrypt files in the folder
+   decrypt_walk_dirs(folder_path, key)
 
 Custom Input
 ~~~~~~~~~~~~
 
+The `custom_input` function provides a way to take user input with a custom question.
+
 .. code-block:: python
 
-   from encryption_utils import custom_input
+   from simple2encrypt import custom_input
 
    question = "Enter your name: "
    user_name = custom_input(question)
 
    print("User name:", user_name)
+
+Generating a Key File
+~~~~~~~~~~~~~~~~~~~~~
+
+You can use the `main` function to generate a key file based on a password.
+
+.. code-block:: python
+
+   from simple2encrypt import main
+
+   main()
 
 API Reference
 -------------
@@ -109,7 +150,7 @@ API Reference
 .. toctree::
    :maxdepth: 2
 
-   simple2encript
+   simple2encrypt
 
 Indices and tables
 ==================
