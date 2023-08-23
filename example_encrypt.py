@@ -6,7 +6,7 @@ import argparse
 import os
 import sys
 
-from simple2encrypt import read_binary, Encryption, write_binary
+from simple2encrypt import FileIO, Encryption
 
 parser = argparse.ArgumentParser(prog='encrypt file use AES encryption', description='take file path and key path and '
                                                                                      'encrypt the file use the key')
@@ -26,10 +26,10 @@ def main(file_path):
 
     try:
         # Read the encryption key from the file
-        key = read_binary(key_path)
+        key = FileIO.read_binary(key_path)
 
         # Read binary data from the file path
-        data = read_binary(file_path)
+        data = FileIO.read_binary(file_path)
     except (FileNotFoundError, ValueError, PermissionError) as read_error:
         print(f"Error reading file: {read_error}")
         sys.exit()
@@ -40,7 +40,7 @@ def main(file_path):
 
     # Write the encrypted data to a new file
     try:
-        write_binary(new_path, encrypted_data)
+        FileIO.write_binary(new_path, encrypted_data)
     except (ValueError, PermissionError) as write_error:
         print(f"Error writing file: {write_error}")
         sys.exit()
