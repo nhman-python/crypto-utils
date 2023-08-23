@@ -6,30 +6,30 @@ import argparse
 import os
 import sys
 
-from simple2encrypt import read_binary, Encryption, write_binary, delete_extension
-
-parser = argparse.ArgumentParser(prog='decrypt file use AES encryption', description='take file path and key path and '
-                                                                                     'encrypt the file use the key')
-parser.add_argument('file_path', help='file path')
-parser.add_argument('key_path', help='key path to decrypt the file_path')
-
-args = parser.parse_args()
+from simple2encrypt import FileIO, Encryption
 
 
-def main(file_path):
+def main():
     """
     Encrypt a file using the Encryption class.
     """
+    parser = argparse.ArgumentParser(prog='decrypt file use AES encryption',
+                                     description='take file path and key path and '
+                                                 'encrypt the file use the key')
+    parser.add_argument('file_path', help='file path')
+    parser.add_argument('key_path', help='key path to decrypt the file_path')
+
+    args = parser.parse_args()
     file_path = args.file_path
     key_path = args.key_path
-    new_path = delete_extension(file_path)
+    new_path = FileIO.delete_extension(file_path)
 
     try:
         # Read the encryption key from the file
-        key = read_binary(key_path)
+        key = FileIO.read_binary(key_path)
 
         # Read binary data from the file path
-        data = read_binary(file_path)
+        data = FileIO.read_binary(file_path)
     except (FileNotFoundError, ValueError, PermissionError) as read_error:
         print(f"Error reading file: {read_error}")
         sys.exit()
@@ -40,7 +40,7 @@ def main(file_path):
     # Write the encrypted data to a new file
     try:
         decrypted_data = encrypt.decrypt()
-        write_binary(new_path, decrypted_data)
+        FileIO.write_binary(new_path, decrypted_data)
     except (ValueError, PermissionError) as write_error:
         print(f"Error writing file: {write_error}")
         sys.exit()
